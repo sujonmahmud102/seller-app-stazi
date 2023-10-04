@@ -71,14 +71,13 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-5 p-12">
-                {/* {
-                    currentPageItems.map(car => <CarCard key={car.id} car={car} />)
-                } */}
-                {noResultsFound ? (
-                    <p className=" text-red-500">No results found</p>
-                ) : (
-                    filteredCarCards
-                )}
+                {
+                    noResultsFound ? (
+                        <p className=" text-red-500">No results found</p>
+                    ) : (
+                        filteredCarCards
+                    )
+                }
             </div>
             <div className={`p-12 ${noResultsFound ? "hidden" : "block"}`}>
                 <Pagination
