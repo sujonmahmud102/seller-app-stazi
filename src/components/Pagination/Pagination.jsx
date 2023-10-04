@@ -19,34 +19,42 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages, onPageChange, tot
     };
 
     const handlePrevPage = () => {
-        setCurrentPage(currentPage - 1);
-        navigate(`/page/${currentPage - 1}`);
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            navigate(`/page/${currentPage - 1}`);
+        }
     }
 
     const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
-        navigate(`/page/${currentPage + 1}`);
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            navigate(`/page/${currentPage + 1}`);
+        }
     }
+
 
     return (
         <div className=" bg-blue-100 shadow-lg rounded-xl w-full flex items-center justify-between p-5">
             <div>
-                <p>({(currentPage - 1) * 6}-{currentPage * 6}) from {totalItems} </p>
+                <p>({(currentPage - 1) * 6 + 1}-{Math.min(currentPage * 6, totalItems)} from {totalItems})</p>
             </div>
             <div className="flex gap-4">
                 <button
                     onClick={() => handlePrevPage()}
                     className={`bg-white px-2 hover:bg-red-200 shadow-md rounded-lg ${currentPage == 1 ? "hidden" : ""}`}> <BsArrowLeft /> </button>
+
                 {
                     pageNumbers.map((number) => (
                         <button
                             key={number}
                             onClick={() => handlePageChange(number)}
-                            className={`hover:bg-red-200 px-2 shadow-md rounded-lg ${id == number ? "bg-red-400 text-white" : "bg-white"}`}>
+                            className={`hover:bg-red-200 px-2 shadow-md rounded-lg ${id == number ? "bg-red-400 text-white" : "bg-white"}`}
+                        >
                             {number}
                         </button>
                     ))
                 }
+
                 <button
                     onClick={() => handleNextPage()}
                     className={`bg-white hover:bg-red-200 px-2 shadow-md rounded-lg ${currentPage === pageNumbers.at(-1) ? "hidden" : ""}`}> <BsArrowRight /> </button>
